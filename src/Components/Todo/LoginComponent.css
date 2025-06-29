@@ -1,0 +1,14 @@
+.username{
+  padding:8px;
+  margin:10px;
+}
+.password{
+  padding:8px;
+  margin:10px;
+}
+.submitbutton{
+  border-radius:20px; padding:20px; font-size:15px;
+}
+.login{
+  margin: 20px;
+}
