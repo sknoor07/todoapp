@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import './LoginComponent.css';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './Security/AuthProvider';
 export default function LoginComponent(){
     const[username, setusername] =useState("")
     const[password, setpassword] =useState("")
-    const[successmessage, setsuccessmessage] =useState(false)
     const[errormessage, seterrormessage] =useState(false)
     const navigate=useNavigate();
+    const authContext= useAuth();
 
     function handleusername(event){
         setusername(event.target.value)
@@ -17,12 +18,11 @@ export default function LoginComponent(){
     }
 
     function handlesubmit(){
-        if(username==="Noor Alam" && password==="1234"){
+        if(authContext.login(username,password)){
             navigate(`/welcome/${username}`)
 
         }else{
             seterrormessage(true)
-            setsuccessmessage(false)
         }
     }
     return (
@@ -38,7 +38,6 @@ export default function LoginComponent(){
             <div className="submitbutton">
                 <button type="submit" name="login" style={{borderRadius:"20px", padding:"20px", fontSize:"15px"}} onClick={handlesubmit}>Login</button>
             </div>
-            {successmessage&& <div>Login Successful</div>}
             {errormessage&& <div>Login Failed</div>}
         </div>
     )

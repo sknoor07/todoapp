@@ -9,10 +9,10 @@ export default function ListTodoComponent(){
     
 
     return(
-        <div>
+        <div className="container">
             <h3>All notes</h3>
             <div>
-                <table>
+                <table className="table">
                     <thead>
                         <tr>
                             <td>Id</td>
