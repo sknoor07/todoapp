@@ -49,7 +49,7 @@ public class NotesService {
 	
 	public void updateNotes(Notes notes) {
 		deletebyId(notes.getId());
-		NotesService.notes.add(notes);
+		this.notes.add(notes);
 	}
 }
 	

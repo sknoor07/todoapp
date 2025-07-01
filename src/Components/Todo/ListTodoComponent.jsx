@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { deleteNote, retrieveAllNotes } from "./Api/NotesApiService";
 import { useAuth } from "./Security/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function ListTodoComponent(){
     //const today= new Date();
@@ -9,6 +10,7 @@ export default function ListTodoComponent(){
     const[message, setMessage] = useState(null);
     const authContext=useAuth();
     const username = authContext.username;
+    const navigate= useNavigate();
     // const notes=[
     //     {id:1,title: "hello World",description:"Hello World",targetdate:targetdate},
     //     {id:2,title: "hello Noor",description:"Hello to Noor",targetdate:targetdate},
@@ -42,6 +44,11 @@ export default function ListTodoComponent(){
         })
         .catch((err)=>console.log(err));
     }
+
+    function updateNote(id){
+        navigate(`/note/${id}`);
+    }
+
     return(
         <div className="container">
             <h3>All notes</h3>
@@ -68,7 +75,7 @@ export default function ListTodoComponent(){
                                         <td>{note.description}</td>
                                         <td>{note.localDate.toString()}</td>
                                         <td><button className="btn btn-warning" onClick={ ()=>handledeletingNote(note.id)}>delete</button></td>
-                                        <td><button className="btn btn-success">update</button></td>
+                                        <td><button className="btn btn-success" onClick={()=>updateNote(note.id)}>update</button></td>
                                     </tr>
                                 )
                             )

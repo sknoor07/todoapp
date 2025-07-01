@@ -5,6 +5,7 @@ import ListTodoComponent from "./ListTodoComponent";
 import LoginComponent from "./LoginComponent";
 import LogoutComponent from "./LogoutComponent";
 import AuthProvider, { useAuth } from "./Security/AuthProvider";
+import UpdateTodoComponent from "./UpdateTodoComponent";
 import WelcomeComponent from "./WelcomeComponent";
 import { BrowserRouter,Routes,Route, Navigate, } from "react-router-dom";
 
@@ -30,6 +31,7 @@ export default function TodoApp() {
                 <Route path="/welcome/:username" element={<AuthenticatedRoute><WelcomeComponent /></AuthenticatedRoute>} />
                 <Route path="/notes" element={<AuthenticatedRoute><ListTodoComponent /></AuthenticatedRoute>} />
                 <Route path="/logout" element={<AuthenticatedRoute><LogoutComponent /></AuthenticatedRoute>} />
+                <Route path="/note/:id" element={<AuthenticatedRoute><UpdateTodoComponent /></AuthenticatedRoute>} />
                 <Route path="*" element={<ErrorComponent />} />
             </Routes>
             </BrowserRouter>
