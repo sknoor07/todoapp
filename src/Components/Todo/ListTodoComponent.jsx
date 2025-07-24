@@ -83,6 +83,9 @@ export default function ListTodoComponent(){
                     </tbody>
                 </table>
             </div>
+            <div>
+                <div className="btn btn-success m-5" onClick={() => navigate(`/note/-1`)}>Create Note</div>
+            </div>
         </div>
     )
 }

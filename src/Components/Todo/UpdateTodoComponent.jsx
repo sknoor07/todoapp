@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { getNote, updateNote } from "./Api/NotesApiService";
+import { createNote, getNote, updateNote } from "./Api/NotesApiService";
 import { useAuth } from "./Security/AuthProvider";
 import { useEffect, useState } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -13,19 +13,19 @@ export default function UpdateTodoComponent() {
     const [targetDate, setTargetDate] = useState(null);
     const navigate=useNavigate();
     
-    useEffect(() => {
-        if(id !== -1) {
+    useEffect(() => retrieveNote(), [id, username]);
+
+    function retrieveNote() {
+        if(Number(id) !== -1) {
             getNote(username, id)
             .then((res) => {
                 setDescription(res.data.description);
                 setTitle(res.data.title);
                 setTargetDate(res.data.localDate.toString());
-                // Here you can set the state with the note data to display it in the form
             })
             .catch((err) => console.log(err));
         }
-    }, [id, username]);
-
+    }
     function handleSubmit(values) {
        const note={
             id: id,
@@ -34,13 +34,21 @@ export default function UpdateTodoComponent() {
             description: values.description,
             localDate: values.targetDate
         };
-
+        if(Number(id)===-1){
+            createNote(username, note)
+            .then((res)=>{
+                console.log("Note created successfully", res.data);
+                navigate("/notes");
+            })
+            .catch((err)=>console.log("Error creating note", err));
+        }else{
             updateNote(username, id, note)
             .then((res)=>{
                 console.log("Note updated successfully", res.data);
                 navigate("/notes");
             })
             .catch((err)=>console.log("Error updating note", err));
+        }
     }
 
     function validateValues(values) {
