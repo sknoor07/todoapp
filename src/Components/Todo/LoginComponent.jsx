@@ -17,8 +17,8 @@ export default function LoginComponent(){
         setpassword(event.target.value)
     }
 
-    function handlesubmit(){
-        if(authContext.login(username,password)){
+    async function handlesubmit(){
+        if(await authContext.login(username,password)){
             navigate(`/welcome/${username}`)
 
         }else{
